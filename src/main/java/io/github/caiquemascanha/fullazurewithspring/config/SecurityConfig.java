@@ -39,6 +39,7 @@ public class SecurityConfig {
                         .userInfoEndpoint(userInfo -> userInfo
                                 .oidcUserService(this.service) // AQUI é onde plugamos nosso serviço customizado
                         )
+                        .defaultSuccessUrl("http://localhost:3000/dashboard", true)
                 )
                 .logout(logout -> logout
                         .logoutSuccessUrl("/login") // Redireciona para a home após o logout
