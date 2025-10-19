@@ -15,6 +15,10 @@ spring:
         provider:
           azure:
             issuer-uri: https://login.microsoftonline.com/${TENANT_ID_DA_AZURE}/v2.0
+  server:
+    servlet:
+      session:
+        timeout: 15m
 
   datasource:
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
