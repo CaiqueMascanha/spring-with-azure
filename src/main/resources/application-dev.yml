@@ -15,10 +15,6 @@ spring:
         provider:
           azure:
             issuer-uri: https://login.microsoftonline.com/${TENANT_ID_DA_AZURE}/v2.0
-  server:
-    servlet:
-      session:
-        timeout: 15m
 
   datasource:
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
@@ -60,3 +56,10 @@ logging:
     root: INFO
     org.hibernate.SQL: DEBUG
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+
+server:
+  port:
+    8080
+  servlet:
+    session:
+      timeout: 15m
