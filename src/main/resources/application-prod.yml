@@ -1,0 +1,58 @@
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          azure:
+            provider: azure
+            client-id: ${CLIENT_ID_DA_AZURE}
+            client-secret: ${CLIENT_SECRET_DA_AZURE}
+            scope:
+              - openid
+              - profile
+              - email
+            redirect-uri: 'http://localhost:8080/login/oauth2/code/azure'
+        provider:
+          azure:
+            issuer-uri: https://login.microsoftonline.com/${TENANT_ID_DA_AZURE}/v2.0
+
+  datasource:
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USER}
+    password: ${DATABASE_PASS}
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 2
+      idle-timeout: 30000        # 30s
+      max-lifetime: 1800000      # 30min
+      connection-timeout: 20000  # 20s
+      pool-name: HikariCP
+
+  jpa:
+    open-in-view: false
+    show-sql: true
+    hibernate:
+      ddl-auto: update  # none | update | create | create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.SQLServerDialect
+        format_sql: true
+        jdbc:
+          time_zone: America/Sao_Paulo
+
+  jackson:
+    time-zone: America/Sao_Paulo
+    locale: pt-BR
+
+  main:
+    banner-mode: "off"
+
+# =============================
+# 🌍 CONFIGURAÇÃO DE LOGS
+# =============================
+logging:
+  level:
+    root: INFO
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE

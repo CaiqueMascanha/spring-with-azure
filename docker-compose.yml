@@ -1,0 +1,27 @@
+version: "3.9"
+
+services:
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sqlserver-spring
+    ports:
+      - "1433:1433"
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "Str0ng!Passw0rd"   # troque!
+      MSSQL_PID: "Developer"           # ou "Express" / "Standard" / "Enterprise"
+      TZ: "America/Sao_Paulo"
+    volumes:
+      - mssql_data:/var/opt/mssql      # persistência dos dados
+    healthcheck:
+      test: ["CMD", "/opt/mssql-tools/bin/sqlcmd", "-S", "localhost", "-U", "sa", "-P", "Str0ng!Passw0rd", "-Q", "SELECT 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+    # Se estiver em CPU Apple (M1/M2), descomente:
+    # platform: linux/amd64
+
+volumes:
+  mssql_data:
+    name: mssql_data
